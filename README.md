@@ -1,0 +1,2 @@
+# Kaatopaikka
+Kaikki komentohässäkät
