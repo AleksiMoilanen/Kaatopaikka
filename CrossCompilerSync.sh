@@ -41,6 +41,8 @@ rsync -avz pi@$ipAddress:/usr/include sysroot/usr
 rsync -avz pi@$ipAddress:/usr/lib sysroot/usr
 rsync -avz pi@$ipAddress:/opt/vc sysroot/opt
 
+./sysroot-relativelinks.py sysroot
+
 #Qt5Pi tiedostojen synkronointi tietokoneelta Raspille
 echo Synchronizing Qt files to raspberry
 rsync -avz qt5pi pi@$ipAddress:/usr/local
