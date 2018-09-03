@@ -4,6 +4,6 @@ Kaikki komentohässäkät
 
 CrossCompilerSync.sh running:
 
-'chmod +x CrossCompilerSync.sh'
+`chmod +x CrossCompilerSync.sh`
 
-'./CrossCompilerSync.sh'
+`./CrossCompilerSync.sh`
