@@ -32,7 +32,7 @@ then
 fi
 
 echo Loading missing libraries
-ssh $userName@$ipAddress "sudo apt-get build-dep qt4-x11 && sudo apt-get build-dep libqt5gui5 && sudo apt-get install libudev-dev libinput-dev libts-dev libxcb-xinerama0-dev libxcb-xinerama0"
+ssh $userName@$ipAddress "sudo apt-get build-dep qt4-x11 && sudo apt-get build-dep libqt5gui5 && sudo apt-get install libudev-dev libinput-dev libts-dev libxcb-xinerama0-dev libxcb-xinerama0 && sudo mkdir /usr/local/qt5pi && sudo chown pi:pi /usr/local/qt5pi"
 
 #sysroot synkronointi Raspilta tietokoneelle
 echo Synchronizing sysroot from raspberry
