@@ -5,7 +5,7 @@ Kaikki komentohässäkät
 
 `ssh-keygen`
 
-`ssh-copy-id *username*@*ipaddress*`
+`ssh-copy-id username@ipaddress`
 
 `chmod +x CrossCompilerSync.sh`
 
