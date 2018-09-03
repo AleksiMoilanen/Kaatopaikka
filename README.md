@@ -2,7 +2,7 @@
 Kaikki komentohässäkät
 
 
-CrossCompilerSync.sh running:
+## CrossCompilerSync.sh running:
 
 `chmod +x CrossCompilerSync.sh`
 
