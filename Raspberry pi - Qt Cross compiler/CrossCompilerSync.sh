@@ -25,11 +25,11 @@ done
 #ssh-copy-key $userName@$ipAddress
 
 #Raspin päivitys
-if [ $raspberryUpdate == 'Y' ] || [ $raspberryUpdate == 'y' ]
-then
-  echo Updating Raspberry
-  ssh $userName@$ipAddress 'sudo apt-get update && sudo apt-get upgrade -y'
-fi
+#if [ $raspberryUpdate == 'Y' ] || [ $raspberryUpdate == 'y' ]
+#then
+echo Updating Raspberry
+ssh $userName@$ipAddress 'sudo apt-get update && sudo apt-get upgrade -y'
+#fi
 
 echo Loading missing libraries
 ssh $userName@$ipAddress "sudo apt-get build-dep qt4-x11 && sudo apt-get build-dep libqt5gui5 && sudo apt-get install libudev-dev libinput-dev libts-dev libxcb-xinerama0-dev libxcb-xinerama0 && sudo mkdir /usr/local/qt5pi && sudo chown pi:pi /usr/local/qt5pi"
