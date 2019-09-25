@@ -4,18 +4,20 @@
 FROM ubuntu:latest
 
 #Variables
-ARG IP_ADDRESS=178.55.186.181
+ARG IP_ADDRESS=192.168.0.19
 ARG USERNAME=pi
-ARG PASSWORD=rasb3rry
+ARG PASSWORD=raspberry
 ARG QT_VERSION=5.12.3
-ARG PORT=2222
+ARG PORT=22
 
 #Update and install required softwares
 RUN apt-get update -y && \
     apt-get install git wget python rsync cmake g++ openssh-client sshpass -y
 
-#Make directory for crosscompiler and download raspberry pi tools
-RUN mkdir ~/raspi
+COPY build.sh /root/build/build.sh
+RUN chmod +x /root/build/build.sh
+
+RUN mkdir /root/raspi
 
 WORKDIR /root/raspi
 
@@ -88,6 +90,6 @@ RUN ~/raspi/qt5/bin/qmake && \
     make -j3 && \
     make install
 
-WORKDIR /root/raspi
+WORKDIR /root/build/
 
-RUN rsync --rsh="sshpass -p $PASSWORD ssh -p $PORT -o StrictHostKeyChecking=no" -avz /root/raspi/qt5pi $USERNAME@$IP_ADDRESS:/usr/local
+ENTRYPOINT [ "./build.sh" ]

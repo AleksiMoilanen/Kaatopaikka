@@ -15,6 +15,7 @@ RUN apt-get update -y && \
     apt-get install git wget python rsync cmake g++ openssh-client sshpass -y
 
 COPY sync.sh /root/raspi/sync.sh
+
 RUN chmod +x /root/raspi/sync.sh
 
 #Make directory for crosscompiler and download raspberry pi tools
