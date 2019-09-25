@@ -15,6 +15,9 @@
 
 ```sudo docker load -i {.tar file}```
 
+# Pulling image from Docker Hub
+
+```docker pull aleksim/sync```
 
 # Running Sync container 
 
