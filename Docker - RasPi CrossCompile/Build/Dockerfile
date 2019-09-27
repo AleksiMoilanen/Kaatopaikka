@@ -2,7 +2,7 @@
 FROM ubuntu:latest
 
 #Variables used to synchronize files from Raspberry pi
-ARG IP_ADDRESS=192.168.43.178
+ARG IP_ADDRESS=192.168.0.19
 ARG USERNAME=pi
 ARG PASSWORD=raspberry
 ARG PORT=22
@@ -13,10 +13,8 @@ ARG QT_VERSION=5.12.3
 RUN apt-get update -y && \
     apt-get install git wget python rsync cmake g++ openssh-client sshpass -y
 
-COPY build.sh /root/build/build.sh
-RUN chmod +x /root/build/build.sh
-
-RUN mkdir /root/raspi
+COPY build.sh /root/raspi/build.sh
+RUN chmod +x /root/raspi/build.sh
 
 WORKDIR /root/raspi
 
@@ -55,33 +53,33 @@ RUN ./configure -release -opengl es2 -device linux-rasp-pi-g++ -device-option CR
 RUN make -j3 && make install
 
 WORKDIR /root/raspi/
+
+RUN mkdir modules
+
+WORKDIR /root/raspi/modules
+
+RUN git clone git://code.qt.io/qt/qtdeclarative.git -b ${QT_VERSION} && \
+    git clone git://code.qt.io/qt/qtquickcontrols.git -b ${QT_VERSION} && \
+    git clone git://code.qt.io/qt/qtquickcontrols2.git -b ${QT_VERSION}
+
+WORKDIR /root/raspi/modules/qtdeclarative
+
+RUN ~/raspi/qt5/bin/qmake && \
+    make -j3 && \
+    make install
+
+WORKDIR /root/raspi/modules/qtquickcontrols
+
+RUN ~/raspi/qt5/bin/qmake && \
+    make -j3 && \
+    make install
+
+WORKDIR /root/raspi/modules/qtquickcontrols2
+
+RUN ~/raspi/qt5/bin/qmake && \
+    make -j3 && \
+    make install
+
+WORKDIR /root/raspi/
 #
-#RUN mkdir modules
-#
-#WORKDIR /root/raspi/modules
-#
-#RUN git clone git://code.qt.io/qt/qtdeclarative.git -b ${QT_VERSION} && \
-#    git clone git://code.qt.io/qt/qtquickcontrols.git -b ${QT_VERSION} && \
-#    git clone git://code.qt.io/qt/qtquickcontrols2.git -b ${QT_VERSION}
-#
-#WORKDIR /root/raspi/modules/qtdeclarative
-#
-#RUN ~/raspi/qt5/bin/qmake && \
-#    make -j3 && \
-#    make install
-#
-#WORKDIR /root/raspi/modules/qtquickcontrols
-#
-#RUN ~/raspi/qt5/bin/qmake && \
-#    make -j3 && \
-#    make install
-#
-#WORKDIR /root/raspi/modules/qtquickcontrols2
-#
-#RUN ~/raspi/qt5/bin/qmake && \
-#    make -j3 && \
-#    make install
-#
-WORKDIR /root/build/
-#
-#ENTRYPOINT [ "./build.sh" ]
+ENTRYPOINT [ "./build.sh" ]
