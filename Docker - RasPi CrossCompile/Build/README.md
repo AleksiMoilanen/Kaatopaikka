@@ -14,18 +14,23 @@ Example:
 
 # Running docker image
 
-`sudo docker run -v $PWD/:/root/build/ {image name} {project name} {username} {password} {ip address} {port}`
+sudo docker run -t -d {image name}
 
-Example:
+## Execute scripts:
 
-`sudo docker run -v $PWD/:/root/build/ aleksi/build Master-UI pi rasberry 192.168.100.60 22`
+Hae container id komennolla:
 
+sudo docker ps -a 
 
-#### Variables:
+### SyncFromDocker2Pi
 
-* image name = docker image name
-* project name = pro filename without .pro 
-* username = Raspberry Pi username
-* password = Raspberry Pi password
-* ip address = Raspberry Pi IP address
-* port = Raspberry Pi SSH connection port
+sudo docker exec -t {container id} /root/raspi/SyncFromDocker2Pi.sh {username} {password} {ip address} {port}
+
+### SyncFromPi2Docker
+
+sudo docker exec -t {container id} /root/raspi/SyncFromPi2Docker.sh {username} {password} {ip address} {port}
+
+### Build
+
+sudo docker cp $PWD/ {container id}:/root/build
+sudo docker exec -t {container id} /root/raspi/Build.sh {project name} {username} {password} {ip address} {port}`

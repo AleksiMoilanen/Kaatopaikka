@@ -13,8 +13,14 @@ ARG QT_VERSION=5.12.3
 RUN apt-get update -y && \
     apt-get install git wget python rsync cmake g++ openssh-client sshpass -y
 
-COPY build.sh /root/raspi/build.sh
-RUN chmod +x /root/raspi/build.sh
+COPY Build.sh /root/raspi/Build.sh
+RUN chmod +x /root/raspi/Build.sh
+
+COPY SyncFromDocker2Pi.sh /root/raspi/SyncFromDocker2Pi.sh
+RUN chmod +x /root/raspi/SyncFromDocker2Pi.sh
+
+COPY SyncFromPi2Docker.sh /root/raspi/SyncFromPi2Docker.sh
+RUN chmod +x /root/raspi/SyncFromPi2Docker.sh
 
 WORKDIR /root/raspi
 
@@ -81,5 +87,10 @@ RUN ~/raspi/qt5/bin/qmake && \
     make install
 
 WORKDIR /root/raspi/
+
+RUN rsync --rsh="ssh -p $PORT -o StrictHostKeyChecking=no" -avz /root/raspi/qt5pi $USERNAME@$IP_ADDRESS:/usr/local
+
 #
-ENTRYPOINT [ "./build.sh" ]
+CMD tail -f /dev/null
+
+#ENTRYPOINT [ "bash" ]
