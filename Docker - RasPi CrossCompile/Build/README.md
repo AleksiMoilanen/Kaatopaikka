@@ -20,17 +20,21 @@ sudo docker run -t -d {image name}
 
 Hae container id komennolla:
 
-sudo docker ps -a 
+`sudo docker ps -a`
 
 ### SyncFromDocker2Pi
 
-sudo docker exec -t {container id} /root/raspi/SyncFromDocker2Pi.sh {username} {password} {ip address} {port}
+`sudo docker exec -t {container id} /root/raspi/SyncFromDocker2Pi.sh {username} {password} {ip address} {port}`
 
 ### SyncFromPi2Docker
 
-sudo docker exec -t {container id} /root/raspi/SyncFromPi2Docker.sh {username} {password} {ip address} {port}
+`sudo docker exec -t {container id} /root/raspi/SyncFromPi2Docker.sh {username} {password} {ip address} {port}`
 
 ### Build
 
-sudo docker cp $PWD/ {container id}:/root/build
-sudo docker exec -t {container id} /root/raspi/Build.sh {project name} {username} {password} {ip address} {port}`
+Kopio projekti tiedostot containeriin:
+
+`sudo docker cp $PWD/ {container id}:/root/build`
+
+
+`sudo docker exec -t {container id} /root/raspi/Build.sh {project name} {username} {password} {ip address} {port}`
